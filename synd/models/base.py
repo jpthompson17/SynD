@@ -136,11 +136,7 @@ class SynDModel(_SerializableMixin, ABC):
     ) -> Iterator:
         if backmapper is not None:
             backmapper = self.get_backmapper(backmapper)
-        for traj in self.generate_unmapped_trajectories(
-            length,
-            initial_states=initial_states,
-            **kwargs,
-        ):
+        for traj in self.generate_unmapped_trajectories(length, initial_states, **kwargs):
             if backmapper is not None:
                 traj = backmapper(traj)
             yield traj
