@@ -90,7 +90,7 @@ class SynDModel(_SerializableMixin, ABC):
     def __init__(self, default_backmapper: Optional[Callable] = None):
         self._backmappers = {}
         if default_backmapper is not None:
-            self.add_backmapper(default_backmapper, 'default')
+            self.default_backmapper = default_backmapper
 
     @abstractmethod
     def generate_unmapped_trajectories(
@@ -100,6 +100,14 @@ class SynDModel(_SerializableMixin, ABC):
             **kwargs,
     ) -> Iterable:
         ...
+
+    @property
+    def default_backmapper(self) -> Optional[Callable]:
+        return self._backmappers.get('default')
+
+    @default_backmapper.setter
+    def default_backmapper(self, value: Callable):
+        self.add_backmapper(value, 'default')
 
     def add_backmapper(self, backmapper: Callable, name: str):
         if name in self._backmappers:
