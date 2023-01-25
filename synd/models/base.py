@@ -32,13 +32,13 @@ class _SerializableMixin:
         return pickle.dumps(self)
 
     @classmethod
-    def deserialize(cls, data: bytes):
-        """Construct an object from its serialized representation.
+    def deserialize(cls, serialized: bytes):
+        """Construct a class instance from its serialized representation.
 
         Parameters
         ----------
-        data : bytes
-            Serialized representation of an instance of `cls`.
+        serialized : bytes
+            Serialized representation of the object.
 
         Returns
         -------
@@ -46,13 +46,13 @@ class _SerializableMixin:
             The deserialized object.
 
         """
-        obj = pickle.loads(data)
+        obj = pickle.loads(serialized)
         if not isinstance(obj, cls):
             raise TypeError(f'object must be an instance of {cls}')
         return obj
 
     def save(self, file: str):
-        """Save an object to a file.
+        """Save the object to a file.
 
         Parameters
         ----------
@@ -65,7 +65,7 @@ class _SerializableMixin:
 
     @classmethod
     def load(cls, file: str):
-        """Load an object from a file.
+        """Load a class instance from a file.
 
         Parameters
         ----------
