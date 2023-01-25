@@ -17,7 +17,7 @@ class MarkovGenerator(SynDModel):
     transition_matrix : ArrayLike | sparse.csr_matrix
         A row stochastic matrix specifying the interstate transition
         probabilities.
-    default_backmapper : Callable[[NDArray[int]], Any]
+    default_backmapper : Callable[[NDArray[int]], Any], optional
         A function that maps a discrete state trajectory (consisting of
         zero-based state indices) to a full-coordinate representation.
     seed : int, optional
@@ -27,10 +27,10 @@ class MarkovGenerator(SynDModel):
     def __init__(
             self,
             transition_matrix: Union[ArrayLike, sparse.spmatrix],
-            default_backmapper: Callable[[NDArray[int]], Any],
+            default_backmapper: Optional[Callable[[NDArray[int]], Any]] = None,
             seed: Optional[int] = None,
     ):
-        super().__init__(default_backmapper)
+        super().__init__(default_backmapper=default_backmapper)
         self.transition_matrix = _ensure_transition_matrix(transition_matrix)
         self.rng = np.random.default_rng(seed=seed)
         self._preprocess_transition_matrix()
