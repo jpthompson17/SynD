@@ -18,7 +18,7 @@ class MarkovGenerator(SynDModel):
         A row stochastic matrix specifying the interstate transition
         probabilities.
     default_backmapper : Callable[[NDArray[int]], Any], optional
-        A function that maps a discrete state trajectory (consisting of
+        A function that maps a discrete state trajectory (a sequence of
         zero-based state indices) to a full-coordinate representation.
     seed : int, optional
         Seed for the random number generator.
