@@ -92,15 +92,6 @@ class SynDModel(_SerializableMixin, ABC):
         if default_backmapper is not None:
             self.default_backmapper = default_backmapper
 
-    @abstractmethod
-    def generate_unmapped_trajectories(
-            self,
-            length: Real,
-            initial_states: Iterable,
-            **kwargs,
-    ) -> Iterable:
-        ...
-
     @property
     def default_backmapper(self) -> Optional[Callable]:
         return self._backmappers.get('default')
@@ -126,6 +117,15 @@ class SynDModel(_SerializableMixin, ABC):
             msg = f'no backmapper named {name!r} is defined for this model'
             raise ValueError(msg)
         return self._backmappers[name]
+
+    @abstractmethod
+    def generate_unmapped_trajectories(
+            self,
+            length: Real,
+            initial_states: Iterable,
+            **kwargs,
+    ) -> Iterable:
+        ...
 
     def generate_trajectories(
             self,
