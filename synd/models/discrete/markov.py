@@ -102,6 +102,8 @@ def _ensure_transition_matrix(matrix):
         matrix = sparse.csr_matrix(matrix)
     if matrix.shape[1] != matrix.shape[0]:
         raise ValueError('transition matrix must be a square matrix')
+    if matrix.min() < 0.0:
+        raise ValueError('transition matrix must be a non-negative matrix')
     if not np.allclose([row.sum() for row in matrix], 1.0):
         raise ValueError('transition matrix must be row-normalized')
     return matrix
